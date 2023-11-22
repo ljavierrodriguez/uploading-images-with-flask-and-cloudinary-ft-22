@@ -18,6 +18,8 @@ def register():
     cv = None
     name = ""
     
+    boletas = None
+    
     if not 'username' in request.form:
         return jsonify({ "msg": "Username is required"}), 400 
     
@@ -42,6 +44,14 @@ def register():
         
     if 'cv' in request.files:
         cv = request.files['cv']
+        
+        
+    # recibir varios archivos relacionados ejemplo: un grupo de imagenes o archivos    
+    if 'boletas' in request.files:
+        boletas = request.files.getlist('boletas')
+        
+        for boleta in boletas:
+            print(boleta.filename)
         
     respA = None
     if avatar is not None:

@@ -11,6 +11,8 @@ const App = () => {
   const [avatar, setAvatar] = useState(null)
   const [cv, setCV] = useState(null)
 
+  const [boletas, setBoletas] = useState([])
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -23,6 +25,12 @@ const App = () => {
     formData.append("password", password)
     formData.append("avatar", avatar)
     formData.append("cv", cv)
+
+    // si quiero subir varios archivos similares
+    for(let i = 0; i < boletas.length; i++){
+      formData.append("boletas", boletas[i])
+    }
+
 
     // enviamos los datos a nuestra api para el registro del usuario
     register(formData)
@@ -90,6 +98,11 @@ const App = () => {
         <div className="form-group mb-3">
           <label htmlFor="avatar" className="form-label">CV</label>
           <input type="file" id="cv" className='form-control' onChange={e => setCV(e.target.files[0])} />
+        </div>
+
+        <div className="form-group mb-3">
+          <label htmlFor="boletas" className="form-label">Boletas</label>
+          <input type="file" id="boletas" className='form-control' onChange={e => setBoletas(e.target.files)} multiple />
         </div>
 
         <button className="btn btn-primary btn-sm w-100 p-2 my-2">
